@@ -1050,6 +1050,16 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_create_permanent_link_title" = "Permanent link";
 "lng_create_invite_link_title" = "Invite link";
 "lng_create_invite_link_about" = "People can join if they were invited, have an invite link, or from \"Groups nearby\"";
+"lng_open_wallet" = "Open wallet";
+"lng_wallet_open" = "Open wallet";
+"lng_wallet_is" = "Wallet";
+"lng_wallet_AiCoin_title" = "AiCoin";
+"lng_wallet_AiCoin_short" = "AIC";
+"lng_wallet_crypto" = "Crypto coins";
+"lng_wallet_etherium_title" = "Etherium";
+"lng_wallet_etherium_description" = "Account for ETH and tokens";
+"lng_wallet_bitcoin_title" = "Bitcoin";
+"lng_wallet_bitcoin_description" = "Account for BTC";
 
 "lng_create_group_skip" = "Skip";
 

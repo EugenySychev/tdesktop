@@ -42,6 +42,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "ui/toasts/common_toasts.h"
 #include "calls/calls_instance.h" // Core::App().calls().inCall().
 #include "ui/boxes/calendar_box.h"
+#include "boxes/wallet_box.h"
 #include "boxes/confirm_box.h"
 #include "mainwidget.h"
 #include "mainwindow.h"
@@ -1147,6 +1148,13 @@ void SessionController::showNewGroup() {
 	_window->show(
 		Box<GroupInfoBox>(this, GroupInfoBox::Type::Group),
 		Ui::LayerOption::KeepOther);
+}
+
+void SessionController::showWalletDialog() {
+	_window->show(
+		Box<WalletBox>(&session()),
+		Ui::LayerOption::KeepOther);
+
 }
 
 void SessionController::showNewChannel() {

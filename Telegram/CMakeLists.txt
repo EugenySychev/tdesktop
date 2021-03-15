@@ -259,6 +259,8 @@ PRIVATE
     boxes/url_auth_box.h
     boxes/username_box.cpp
     boxes/username_box.h
+    boxes/wallet_box.cpp
+    boxes/wallet_box.h
     calls/calls_box_controller.cpp
     calls/calls_box_controller.h
     calls/calls_call.cpp

@@ -329,6 +329,7 @@ public:
 	void showAddContact();
 	void showNewGroup();
 	void showNewChannel();
+	void showWalletDialog();
 
 	void showPassportForm(const Passport::FormRequest &request);
 	void clearPassportForm();

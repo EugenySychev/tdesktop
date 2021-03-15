@@ -19,6 +19,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "core/sandbox.h"
 #include "boxes/peer_list_controllers.h"
 #include "boxes/about_box.h"
+#include "boxes/wallet_box.h"
 #include "lang/lang_keys.h"
 #include "storage/localstorage.h"
 #include "window/window_controller.h"

@@ -896,6 +896,9 @@ void MainMenu::refreshMenu() {
 	_menu->clearActions();
 	const auto controller = _controller;
 	if (!_controller->session().supportMode()) {
+		_menu->addAction(tr::lng_open_wallet(tr::now), [=] {
+			controller->showWalletDialog();
+		}, &st::mainMenuNewGroup, &st::mainMenuNewGroupOver);
 		_menu->addAction(tr::lng_create_group_title(tr::now), [=] {
 			controller->showNewGroup();
 		}, &st::mainMenuNewGroup, &st::mainMenuNewGroupOver);
