@@ -15,7 +15,7 @@ namespace Main {
 class Session;
 } // namespace Main
 
-class WalletBox : public Ui::BoxContent {
+class WalletBox : public Section {
 public:
 	WalletBox(QWidget*, not_null<Main::Session*> session);
 
