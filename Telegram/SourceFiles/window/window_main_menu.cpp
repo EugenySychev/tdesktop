@@ -388,7 +388,7 @@ MainMenu::MainMenu(
 	parentResized();
 
 	_telegram->setMarkedText(Ui::Text::Link(
-		qsl("Telegram Desktop"),
+		qsl("TG Connect Desktop"),
 		qsl("https://desktop.telegram.org")));
 	_telegram->setLinksTrusted();
 	_version->setMarkedText(

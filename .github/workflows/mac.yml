@@ -96,7 +96,7 @@ jobs:
           cd Libraries
           find . -iname "*.dir" -exec rm -rf {} || true \;
 
-      - name: Telegram Desktop build.
+      - name: TG Connect build.
         if: env.ONLY_CACHE == 'false'
         run: |
           cd $REPO_NAME/Telegram
@@ -128,7 +128,7 @@ jobs:
         run: |
           cd $REPO_NAME/out/Debug
           mkdir artifact
-          mv Telegram.app artifact/
+          mv TG_Connect.app artifact/
           mv Updater artifact/
       - uses: actions/upload-artifact@master
         if: env.UPLOAD_ARTIFACT == 'true'

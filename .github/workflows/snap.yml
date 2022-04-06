@@ -68,7 +68,7 @@ jobs:
           sudo snap run lxd init --auto
           sudo snap run lxd waitready
 
-      - name: Telegram Desktop snap build.
+      - name: TG Connect snap build.
         run: sg lxd -c 'snap run snapcraft --use-lxd'
 
       - name: Move artifact.

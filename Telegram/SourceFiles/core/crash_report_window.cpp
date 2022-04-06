@@ -415,7 +415,7 @@ LastCrashedWindow::LastCrashedWindow(
 	});
 	_saveReport.setText(qsl("SAVE TO FILE"));
 	connect(&_saveReport, &QPushButton::clicked, [=] { saveReport(); });
-	_getApp.setText(qsl("GET THE LATEST OFFICIAL VERSION OF TELEGRAM DESKTOP"));
+	_getApp.setText(qsl("GET THE LATEST OFFICIAL VERSION OF TG Connect DESKTOP"));
 	connect(&_getApp, &QPushButton::clicked, [=] {
 		QDesktopServices::openUrl(qsl("https://desktop.telegram.org"));
 	});

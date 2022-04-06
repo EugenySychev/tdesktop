@@ -64,7 +64,7 @@ AboutBox::AboutBox(QWidget *parent)
 }
 
 void AboutBox::prepare() {
-	setTitle(rpl::single(qsl("Telegram Desktop")));
+	setTitle(rpl::single(qsl("TG Connect Desktop")));
 
 	addButton(tr::lng_close(), [this] { closeBox(); });
 

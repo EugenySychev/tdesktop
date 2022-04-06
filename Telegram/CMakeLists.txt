@@ -4,8 +4,8 @@
 # For license and copyright information please follow this link:
 # https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
-add_executable(Telegram WIN32 MACOSX_BUNDLE)
-init_non_host_target(Telegram)
+add_executable(TG_Connect WIN32 MACOSX_BUNDLE)
+init_non_host_target(TG_Connect)
 
 add_subdirectory(lib_rpl)
 add_subdirectory(lib_crl)
@@ -42,18 +42,18 @@ include(cmake/generate_appdata_changelog.cmake)
 
 if (WIN32)
     include(cmake/generate_midl.cmake)
-    generate_midl(Telegram ${src_loc}
+    generate_midl(TG_Connect ${src_loc}
         platform/win/windows_quiethours.idl
         platform/win/windows_toastactivator.idl
     )
 
-    nuget_add_winrt(Telegram)
+    nuget_add_winrt(TG_Connect)
 endif()
 
-set_target_properties(Telegram PROPERTIES AUTOMOC ON)
-target_prepare_qrc(Telegram)
+set_target_properties(TG_Connect PROPERTIES AUTOMOC ON)
+target_prepare_qrc(TG_Connect)
 
-target_link_libraries(Telegram
+target_link_libraries(TG_Connect
 PRIVATE
     tdesktop::lib_tgcalls_legacy
     tdesktop::lib_tgcalls
@@ -95,8 +95,8 @@ PRIVATE
     desktop-app::external_xxhash
 )
 
-target_precompile_headers(Telegram PRIVATE ${src_loc}/stdafx.h)
-nice_target_sources(Telegram ${src_loc}
+target_precompile_headers(TG_Connect PRIVATE ${src_loc}/stdafx.h)
+nice_target_sources(TG_Connect ${src_loc}
 PRIVATE
     ${style_files}
 
@@ -1234,14 +1234,14 @@ PRIVATE
 )
 
 if (NOT build_winstore)
-    remove_target_sources(Telegram ${src_loc}
+    remove_target_sources(TG_Connect ${src_loc}
         platform/win/windows_start_task.cpp
         platform/win/windows_start_task.h
     )
 endif()
 
 if (DESKTOP_APP_DISABLE_DBUS_INTEGRATION)
-    remove_target_sources(Telegram ${src_loc}
+    remove_target_sources(TG_Connect ${src_loc}
         platform/linux/linux_xdp_file_dialog.cpp
         platform/linux/linux_xdp_file_dialog.h
         platform/linux/linux_xdp_open_with_dialog.cpp
@@ -1249,28 +1249,28 @@ if (DESKTOP_APP_DISABLE_DBUS_INTEGRATION)
         platform/linux/notifications_manager_linux.cpp
     )
 else()
-    remove_target_sources(Telegram ${src_loc}
+    remove_target_sources(TG_Connect ${src_loc}
         platform/linux/notifications_manager_linux_dummy.cpp
     )
 endif()
 
 if (DESKTOP_APP_DISABLE_WAYLAND_INTEGRATION)
-    remove_target_sources(Telegram ${src_loc}
+    remove_target_sources(TG_Connect ${src_loc}
         platform/linux/linux_wayland_integration.cpp
     )
 else()
-    remove_target_sources(Telegram ${src_loc}
+    remove_target_sources(TG_Connect ${src_loc}
         platform/linux/linux_wayland_integration_dummy.cpp
     )
 endif()
 
 if (DESKTOP_APP_USE_PACKAGED)
-    remove_target_sources(Telegram ${src_loc}
+    remove_target_sources(TG_Connect ${src_loc}
         platform/mac/mac_iconv_helper.c
     )
 endif()
 
-nice_target_sources(Telegram ${res_loc}
+nice_target_sources(TG_Connect ${res_loc}
 PRIVATE
     qrc/emoji_1.qrc
     qrc/emoji_2.qrc
@@ -1304,11 +1304,11 @@ if (WIN32)
     # )
 elseif (APPLE)
     if (NOT DESKTOP_APP_USE_PACKAGED)
-        target_link_libraries(Telegram PRIVATE desktop-app::external_iconv)
+        target_link_libraries(TG_Connect PRIVATE desktop-app::external_iconv)
     endif()
 
     set(icons_path ${CMAKE_CURRENT_SOURCE_DIR}/Telegram/Images.xcassets)
-    target_add_resource(Telegram ${icons_path})
+    target_add_resource(TG_Connect ${icons_path})
 
     set(lang_packs
         en
@@ -1325,11 +1325,11 @@ elseif (APPLE)
         MACOSX_PACKAGE_LOCATION
             Resources/${lang}.lproj
         )
-        target_sources(Telegram PRIVATE ${strings_path})
+        target_sources(TG_Connect PRIVATE ${strings_path})
         source_group(TREE ${res_loc} PREFIX Resources FILES ${strings_path})
     endforeach()
 
-    add_custom_command(TARGET Telegram
+    add_custom_command(TARGET TG_Connect
     PRE_LINK
         COMMAND mkdir -p $<TARGET_FILE_DIR:Telegram>/../Resources
         COMMAND cp ${CMAKE_BINARY_DIR}/lib_ui.rcc $<TARGET_FILE_DIR:Telegram>/../Resources
@@ -1346,7 +1346,7 @@ elseif (APPLE)
             else()
                 set(crashpad_dir_part "")
             endif()
-            add_custom_command(TARGET Telegram
+            add_custom_command(TARGET TG_Connect
             PRE_LINK
                 COMMAND mkdir -p $<TARGET_FILE_DIR:Telegram>/../Helpers
                 COMMAND cp ${libs_loc}/crashpad/out/$<IF:$<CONFIG:Debug>,Debug,Release>${crashpad_dir_part}/crashpad_handler $<TARGET_FILE_DIR:Telegram>/../Helpers/
@@ -1355,7 +1355,7 @@ elseif (APPLE)
     endif()
 else()
     if (NOT DESKTOP_APP_DISABLE_DBUS_INTEGRATION)
-        target_link_libraries(Telegram
+        target_link_libraries(TG_Connect
         PRIVATE
             desktop-app::external_glibmm
             desktop-app::external_glib
@@ -1363,14 +1363,14 @@ else()
     endif()
 
     if (NOT DESKTOP_APP_DISABLE_X11_INTEGRATION)
-        target_link_libraries(Telegram
+        target_link_libraries(TG_Connect
         PRIVATE
             desktop-app::external_xcb
         )
     endif()
 
     if (NOT DESKTOP_APP_DISABLE_WAYLAND_INTEGRATION)
-        target_link_libraries(Telegram
+        target_link_libraries(TG_Connect
         PRIVATE
             desktop-app::lib_waylandshells
             desktop-app::external_kwayland
@@ -1380,13 +1380,13 @@ endif()
 
 if (build_macstore)
     set(bundle_identifier "org.telegram.desktop")
-    set(bundle_entitlements "Telegram Lite.entitlements")
-    set(output_name "Telegram Lite")
-    set_target_properties(Telegram PROPERTIES
+    set(bundle_entitlements "TG_Connect Lite.entitlements")
+    set(output_name "TG_Connect Lite")
+    set_target_properties(TG_Connect PROPERTIES
         XCODE_ATTRIBUTE_FRAMEWORK_SEARCH_PATHS ${libs_loc}/breakpad/src/client/mac/build/Release
     )
-    target_link_frameworks(Telegram PRIVATE Breakpad)
-    add_custom_command(TARGET Telegram
+    target_link_frameworks(TG_Connect PRIVATE Breakpad)
+    add_custom_command(TARGET TG_Connect
     PRE_LINK
         COMMAND rm -rf $<TARGET_FILE_DIR:Telegram>/../Frameworks
         COMMAND mkdir -p $<TARGET_FILE_DIR:Telegram>/../Frameworks
@@ -1395,16 +1395,16 @@ if (build_macstore)
         COMMAND rm -rf $<TARGET_FILE_DIR:Telegram>/../Frameworks/Breakpad.framework/Resources/Inspector
     )
 else()
-    set(bundle_identifier "com.tdesktop.Telegram$<$<CONFIG:Debug>:Debug>")
-    set(bundle_entitlements "Telegram.entitlements")
+    set(bundle_identifier "com.tdesktop.TG_Connect$<$<CONFIG:Debug>:Debug>")
+    set(bundle_entitlements "TelegTG_Connectram.entitlements")
     if (LINUX AND DESKTOP_APP_USE_PACKAGED)
-        set(output_name "telegram-desktop")
+        set(output_name "TG_Connect-desktop")
     else()
-        set(output_name "Telegram")
+        set(output_name "TG_Connect")
     endif()
 endif()
 
-set_target_properties(Telegram PROPERTIES
+set_target_properties(TG_Connect PROPERTIES
     OUTPUT_NAME ${output_name}
     MACOSX_BUNDLE_GUI_IDENTIFIER ${bundle_identifier}
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Telegram.plist
@@ -1424,31 +1424,31 @@ set(entitlement_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/Telegram/Telegram.entitlements"
     "${CMAKE_CURRENT_SOURCE_DIR}/Telegram/Telegram Lite.entitlements"
 )
-target_sources(Telegram PRIVATE ${entitlement_sources})
+target_sources(TG_Connect PRIVATE ${entitlement_sources})
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Telegram PREFIX Resources FILES ${entitlement_sources})
 
-target_include_directories(Telegram PRIVATE ${src_loc})
+target_include_directories(TG_Connect PRIVATE ${src_loc})
 
-target_compile_definitions(Telegram
+target_compile_definitions(TG_Connect
 PRIVATE
     TDESKTOP_API_ID=${TDESKTOP_API_ID}
     TDESKTOP_API_HASH=${TDESKTOP_API_HASH}
-    G_LOG_DOMAIN="Telegram"
+    G_LOG_DOMAIN="TG_Connect"
 )
 
 if (APPLE
     OR "${CMAKE_GENERATOR}" STREQUAL "Ninja Multi-Config"
     OR NOT CMAKE_EXECUTABLE_SUFFIX STREQUAL ""
-    OR NOT "${output_name}" STREQUAL "Telegram")
+    OR NOT "${output_name}" STREQUAL "TG_Connect")
     set(output_folder ${CMAKE_BINARY_DIR})
 else()
     set(output_folder ${CMAKE_BINARY_DIR}/bin)
 endif()
 
-set_target_properties(Telegram PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${output_folder})
+set_target_properties(TG_Connect PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${output_folder})
 
 if (WIN32)
-    target_link_options(Telegram
+    target_link_options(TG_Connect
     PRIVATE
         /DELAYLOAD:secur32.dll
         /DELAYLOAD:winmm.dll
@@ -1479,7 +1479,7 @@ if ((NOT DESKTOP_APP_DISABLE_AUTOUPDATE OR APPLE) AND NOT build_macstore AND NOT
     add_executable(Updater WIN32)
     init_non_host_target(Updater)
 
-    add_dependencies(Telegram Updater)
+    add_dependencies(TG_Connect Updater)
 
     nice_target_sources(Updater ${src_loc}
     PRIVATE
@@ -1541,7 +1541,7 @@ elseif (build_winstore)
     add_executable(StartupTask WIN32)
     init_non_host_target(StartupTask)
 
-    add_dependencies(Telegram StartupTask)
+    add_dependencies(TG_Connect StartupTask)
 
     nice_target_sources(StartupTask ${src_loc}
     PRIVATE
@@ -1556,8 +1556,8 @@ endif()
 if (LINUX AND DESKTOP_APP_USE_PACKAGED)
     include(GNUInstallDirs)
     configure_file("../lib/xdg/telegramdesktop.metainfo.xml.in" "${CMAKE_CURRENT_BINARY_DIR}/telegramdesktop.metainfo.xml" @ONLY)
-    generate_appdata_changelog(Telegram "${CMAKE_SOURCE_DIR}/changelog.txt" "${CMAKE_CURRENT_BINARY_DIR}/telegramdesktop.metainfo.xml")
-    install(TARGETS Telegram RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" BUNDLE DESTINATION "${CMAKE_INSTALL_BINDIR}")
+    generate_appdata_changelog(TG_Connect "${CMAKE_SOURCE_DIR}/changelog.txt" "${CMAKE_CURRENT_BINARY_DIR}/telegramdesktop.metainfo.xml")
+    install(TARGETS TG_Connect RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" BUNDLE DESTINATION "${CMAKE_INSTALL_BINDIR}")
     install(FILES "Resources/art/icon16.png" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/16x16/apps" RENAME "telegram.png")
     install(FILES "Resources/art/icon32.png" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/32x32/apps" RENAME "telegram.png")
     install(FILES "Resources/art/icon48.png" DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/48x48/apps" RENAME "telegram.png")

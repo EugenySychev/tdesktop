@@ -144,7 +144,7 @@ jobs:
           del /S Libraries\*.pch
           del /S Libraries\*.obj
 
-      - name: Telegram Desktop build.
+      - name: TG Connect build.
         if: env.ONLY_CACHE == 'false'
         run: |
           C:

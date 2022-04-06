@@ -19,13 +19,13 @@ if (APPLE)
     set(project_langs C CXX OBJC OBJCXX)
 endif()
 
-project(Telegram
+project(TG_Connect
     LANGUAGES ${project_langs}
     VERSION ${desktop_app_version_cmake}
-    DESCRIPTION "Official Telegram Desktop messenger"
+    DESCRIPTION "Official TG Connect messenger"
     HOMEPAGE_URL "https://desktop.telegram.org"
 )
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Telegram)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT TG_Connect)
 
 get_filename_component(third_party_loc "Telegram/ThirdParty" REALPATH)
 get_filename_component(submodules_loc "Telegram" REALPATH)

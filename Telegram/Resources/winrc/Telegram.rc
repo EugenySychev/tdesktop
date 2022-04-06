@@ -60,11 +60,11 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName", "Telegram FZ-LLC"
-            VALUE "FileDescription", "Telegram Desktop"
+            VALUE "CompanyName", "TG Connect FZ-LLC"
+            VALUE "FileDescription", "TG Connect Desktop"
             VALUE "FileVersion", "3.6.1.0"
             VALUE "LegalCopyright", "Copyright (C) 2014-2022"
-            VALUE "ProductName", "Telegram Desktop"
+            VALUE "ProductName", "TG Connect Desktop"
             VALUE "ProductVersion", "3.6.1.0"
         END
     END

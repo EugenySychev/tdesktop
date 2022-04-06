@@ -1,12 +1,12 @@
 [Desktop Entry]
 Version=1.5
-Name=Telegram Desktop
-Comment=Official desktop version of Telegram messaging app
-TryExec=telegram-desktop
-Exec=telegram-desktop -- %u
-Icon=telegram
+Name=TG Connect
+Comment=Official desktop version of TG Connect messaging app
+TryExec=TG_Connect
+Exec=TG_Connect -- %u
+Icon=TG_Connect
 Terminal=false
-StartupWMClass=TelegramDesktop
+StartupWMClass=TG_Connect
 Type=Application
 Categories=Chat;Network;InstantMessaging;Qt;
 MimeType=x-scheme-handler/tg;
@@ -18,5 +18,5 @@ X-GNOME-SingleWindow=true
 
 [Desktop Action Quit]
 Exec=telegram-desktop -quit
-Name=Quit Telegram
+Name=Quit TG Connect
 Icon=application-exit

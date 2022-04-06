@@ -81,7 +81,7 @@ jobs:
           gcc --version
           ln -s $LibrariesPath Libraries
 
-      - name: Telegram Desktop build.
+      - name: TG Connect build.
         run: |
           cd $REPO_NAME/Telegram
 
@@ -89,9 +89,9 @@ jobs:
           if [ -n "${{ matrix.defines }}" ]; then
             DEFINE="-D ${{ matrix.defines }}=ON"
             echo Define from matrix: $DEFINE
-            echo "ARTIFACT_NAME=Telegram_${{ matrix.defines }}" >> $GITHUB_ENV
+            echo "ARTIFACT_NAME=TG_Connect${{ matrix.defines }}" >> $GITHUB_ENV
           else
-            echo "ARTIFACT_NAME=Telegram" >> $GITHUB_ENV
+            echo "ARTIFACT_NAME=TG_Connect" >> $GITHUB_ENV
           fi
 
           ./configure.sh \
@@ -107,7 +107,7 @@ jobs:
 
       - name: Check.
         run: |
-          filePath="$REPO_NAME/out/Debug/Telegram"
+          filePath="$REPO_NAME/out/Debug/TG_Connect"
           if test -f "$filePath"; then
             echo "Build successfully done! :)"
 
@@ -123,7 +123,7 @@ jobs:
         run: |
           cd $REPO_NAME/out/Debug
           mkdir artifact
-          mv Telegram artifact/
+          mv TG_Connect artifact/
       - uses: actions/upload-artifact@master
         if: env.UPLOAD_ARTIFACT == 'true'
         name: Upload artifact.
