@@ -15,6 +15,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "lang/lang_tag.h" // kTextCommandLangTag.
 #include "base/platform/base_platform_info.h"
 #include "base/qthelp_regex.h"
+#include <QDebug>
 
 namespace Lang {
 namespace {
@@ -735,6 +736,10 @@ QString Instance::getNonDefaultValue(const QByteArray &key) const {
 
 void Instance::applyValue(const QByteArray &key, const QByteArray &value) {
 	_nonDefaultValues[key] = value;
+	// Added for getting value from default dictionaries
+	// if (value.contains("Telegram"))
+			// qDebug() <<  key << ": " << QString::fromUtf8(value) << ",";
+
 	ParseKeyValue(key, value, [&](ushort key, QString &&value) {
 		_nonDefaultSet[key] = 1;
 		if (!_derived) {
@@ -817,7 +822,10 @@ rpl::producer<QString> Value(ushort key) {
 	return rpl::single(
 		Current(key)
 	) | then(
-		Updated() | rpl::map([=] { return Current(key); })
+		Updated() | rpl::map([=] {
+			QString res{Current(key)};
+			return res;
+		 })
 	);
 }
 

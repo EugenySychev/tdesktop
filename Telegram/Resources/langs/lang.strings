@@ -228,7 +228,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_code_from_telegram" = "Please enter the code you've just received\nin your previous **TG Connect** app.";
 "lng_code_no_telegram" = "Send code via SMS";
 "lng_code_register_phone" = "If you already signed up for TG Connect, please enter the code which was sent to your mobile app.\n\nIf you haven’t signed up yet, please register from your phone or tablet first.";
-"lng_code_call" = "TelegrTG Connectam will call you in {minutes}:{seconds}";
+"lng_code_call" = "TG Connect will call you in {minutes}:{seconds}";
 "lng_code_calling" = "Requesting a call from TG Connect...";
 "lng_code_called" = "TG Connect dialed your number";
 

@@ -6,6 +6,7 @@ For license and copyright information please follow this link:
 https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 */
 #include "mainwindow.h"
+#include "tgc/tgc_lang.h"
 
 #include "data/data_document.h"
 #include "data/data_session.h"
@@ -146,7 +147,7 @@ void MainWindow::createTrayIconMenu() {
 	const auto notificationAction = trayIconMenu->addAction(QString(), [=] {
 		toggleDisplayNotifyFromTray();
 	});
-	trayIconMenu->addAction(tr::lng_quit_from_tray(tr::now), [=] {
+	trayIconMenu->addAction(ctr("lng_quit_from_tray"), [=] {
 		quitFromTray();
 	});
 
@@ -158,12 +159,15 @@ void MainWindow::createTrayIconMenu() {
 
 		_activeForTrayIconAction = isActiveForTrayMenu();
 		minimizeAction->setText(_activeForTrayIconAction
-			? tr::lng_minimize_to_tray(tr::now)
-			: tr::lng_open_from_tray(tr::now));
+			? ctr("lng_minimize_to_tray")
+			: ctr("lng_open_from_tray"));
 
 		auto notificationActionText = Core::App().settings().desktopNotify()
-			? tr::lng_disable_notifications_from_tray(tr::now)
-			: tr::lng_enable_notifications_from_tray(tr::now);
+			? ctr("lng_disable_notifications_from_tray")
+			: ctr("lng_enable_notifications_from_tray");
+
+		qDebug() << "Add action " << ctr("lng_open_from_tray");
+
 		notificationAction->setText(notificationActionText);
 	}, lifetime());
 

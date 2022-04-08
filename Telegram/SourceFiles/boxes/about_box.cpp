@@ -6,6 +6,7 @@ For license and copyright information please follow this link:
 https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 */
 #include "boxes/about_box.h"
+#include "tgc/tgc_lang.h"
 
 #include "lang/lang_keys.h"
 #include "mainwidget.h"
@@ -27,11 +28,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 namespace {
 
 rpl::producer<TextWithEntities> Text1() {
-	return tr::lng_about_text1(
-		lt_api_link,
-		tr::lng_about_text1_api(
-		) | Ui::Text::ToLink("https://core.telegram.org/api"),
-		Ui::Text::WithEntities);
+	return rctre("lng_about_text1", {
+		"tdesktop_link",
+		Ui::Text::Link(ctr("lng_about_text1"), "https://core.telegram.org/api")
+	});
 }
 
 rpl::producer<TextWithEntities> Text2() {
