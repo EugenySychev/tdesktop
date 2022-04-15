@@ -6,7 +6,7 @@ For license and copyright information please follow this link:
 https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 */
 #include "window/window_filters_menu.h"
-
+#include "ime/ime_settings.h"
 #include "mainwindow.h"
 #include "window/window_session_controller.h"
 #include "window/window_controller.h"
@@ -103,6 +103,7 @@ void FiltersMenu::setup() {
 	}, _outer.lifetime());
 
 	const auto filters = &_session->session().data().chatsFilters();
+	qDebug() << "Filters on setup " << filters->list().size();
 	rpl::single(rpl::empty) | rpl::then(
 		filters->changed()
 	) | rpl::start_with_next([=] {
@@ -177,9 +178,12 @@ void FiltersMenu::scrollToButton(not_null<Ui::RpWidget*> widget) {
 
 void FiltersMenu::refresh() {
 	const auto filters = &_session->session().data().chatsFilters();
-	if (filters->list().empty() || _ignoreRefresh) {
-		return;
-	}
+
+
+	// Disable checking empty filters for iMe format, need to add checking of enabled default list
+	// if (filters->list().empty() || _ignoreRefresh) {
+	// 	return;
+	// }
 	const auto oldTop = _scroll.scrollTop();
 
 	if (!_list) {
@@ -187,7 +191,22 @@ void FiltersMenu::refresh() {
 	}
 	_reorder->cancel();
 	auto now = base::flat_map<int, base::unique_qptr<Ui::SideBarButton>>();
+
+	auto imeList = IME::ImeSettings::getDefaultFilters();
+
+	for (const auto &filter : imeList) {
+		qDebug() << "Default Filter " << filter.id() << " title: " << filter.title() << " icon " << filter.iconEmoji();
+		now.emplace(
+			filter.id(),
+			prepareButton(
+				_list,
+				filter.id(),
+				filter.title(),
+				Ui::ComputeFilterIcon(filter)));
+	}
+
 	for (const auto &filter : filters->list()) {
+		qDebug() << "Filter " << filter.id() << " title: " << filter.title() << " icon " << filter.iconEmoji();
 		now.emplace(
 			filter.id(),
 			prepareButton(

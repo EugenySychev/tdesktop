@@ -696,6 +696,8 @@ PRIVATE
     history/history_unread_things.h
     history/history_widget.cpp
     history/history_widget.h
+    ime/ime_settings.cpp
+    ime/ime_settings.h
     info/info_content_widget.cpp
     info/info_content_widget.h
     info/info_controller.cpp

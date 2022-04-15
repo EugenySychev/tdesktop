@@ -22,7 +22,7 @@ class Session;
 
 class ChatFilter final {
 public:
-	enum class Flag : uchar {
+	enum class Flag : quint32 {
 		Contacts    = 0x01,
 		NonContacts = 0x02,
 		Groups      = 0x04,
@@ -31,6 +31,18 @@ public:
 		NoMuted     = 0x20,
 		NoRead      = 0x40,
 		NoArchived  = 0x80,
+
+		// IME defaults filters
+		IME_All				= 0x0100,
+		IME_Private			= 0x0200,
+		IME_PrivateGroup	= 0x0400,
+		IME_PublicGroup		= 0x0800,
+		IME_PrivateChannels	= 0x1000,
+		IME_PublicChannels  = 0x2000,
+		IME_Bots			= 0x4000,
+		IME_AdminsChats		= 0x8000,
+		IME_OwnersChats		= 0x18000,
+
 	};
 	friend constexpr inline bool is_flag_type(Flag) { return true; };
 	using Flags = base::flags<Flag>;
