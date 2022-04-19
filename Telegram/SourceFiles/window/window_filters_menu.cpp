@@ -179,11 +179,9 @@ void FiltersMenu::scrollToButton(not_null<Ui::RpWidget*> widget) {
 void FiltersMenu::refresh() {
 	const auto filters = &_session->session().data().chatsFilters();
 
-
-	// Disable checking empty filters for iMe format, need to add checking of enabled default list
-	// if (filters->list().empty() || _ignoreRefresh) {
-	// 	return;
-	// }
+	if (filters->list().empty() || _ignoreRefresh) {
+		return;
+	}
 	const auto oldTop = _scroll.scrollTop();
 
 	if (!_list) {
@@ -191,19 +189,6 @@ void FiltersMenu::refresh() {
 	}
 	_reorder->cancel();
 	auto now = base::flat_map<int, base::unique_qptr<Ui::SideBarButton>>();
-
-	auto imeList = IME::ImeSettings::getDefaultFilters();
-
-	for (const auto &filter : imeList) {
-		qDebug() << "Default Filter " << filter.id() << " title: " << filter.title() << " icon " << filter.iconEmoji();
-		now.emplace(
-			filter.id(),
-			prepareButton(
-				_list,
-				filter.id(),
-				filter.title(),
-				Ui::ComputeFilterIcon(filter)));
-	}
 
 	for (const auto &filter : filters->list()) {
 		qDebug() << "Filter " << filter.id() << " title: " << filter.title() << " icon " << filter.iconEmoji();

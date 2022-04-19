@@ -16,6 +16,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "mtproto/sender.h"
 #include "api/api_single_message_search.h"
 
+namespace IME {
+class FiltersTab;
+}
+
 namespace MTP {
 class Error;
 } // namespace MTP
@@ -182,6 +186,7 @@ private:
 
 	object_ptr<Ui::IconButton> _forwardCancel = { nullptr };
 	object_ptr<Ui::RpWidget> _searchControls;
+	object_ptr<Ui::RpWidget> _filterTabControl;
 	object_ptr<HistoryView::TopBarWidget> _folderTopBar = { nullptr } ;
 	object_ptr<Ui::IconButton> _mainMenuToggle;
 	object_ptr<Ui::IconButton> _searchForNarrowFilters;
@@ -197,6 +202,7 @@ private:
 	object_ptr<BottomButton> _loadMoreChats = { nullptr };
 	std::unique_ptr<Ui::DownloadBar> _downloadBar;
 	std::unique_ptr<Window::ConnectionState> _connecting;
+	std::unique_ptr<IME::FiltersTab> _filtersTab;
 
 	Ui::Animations::Simple _scrollToAnimation;
 	Ui::Animations::Simple _a_show;

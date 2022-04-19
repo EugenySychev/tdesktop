@@ -698,6 +698,12 @@ PRIVATE
     history/history_widget.h
     ime/ime_settings.cpp
     ime/ime_settings.h
+    ime/ime_filter_tab.cpp
+    ime/ime_filter_tab.h
+    ime/horizontal_layout.cpp
+    ime/horizontal_layout.h
+    ime/horizontal_layout_reorder.cpp
+    ime/horizontal_layout_reorder.h
     info/info_content_widget.cpp
     info/info_content_widget.h
     info/info_controller.cpp

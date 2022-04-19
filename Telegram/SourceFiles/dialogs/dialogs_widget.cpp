@@ -6,7 +6,7 @@ For license and copyright information please follow this link:
 https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 */
 #include "dialogs/dialogs_widget.h"
-
+#include "ime/ime_filter_tab.h"
 #include "dialogs/dialogs_inner_widget.h"
 #include "dialogs/dialogs_search_from_controllers.h"
 #include "dialogs/dialogs_key.h"
@@ -173,6 +173,7 @@ Widget::Widget(
 , _api(&controller->session().mtp())
 , _chooseByDragTimer([=] { _inner->chooseRow(); })
 , _searchControls(this)
+, _filterTabControl(this)
 , _mainMenuToggle(_searchControls, st::dialogsMenuToggle)
 , _searchForNarrowFilters(_searchControls, st::dialogsSearchForNarrowFilters)
 , _filter(_searchControls, st::dialogsFilter, tr::lng_dlg_filter())
@@ -388,6 +389,8 @@ Widget::Widget(
 	}, lifetime());
 
 	setupDownloadBar();
+
+	_filtersTab = std::make_unique<IME::FiltersTab>(_filterTabControl);
 }
 
 void Widget::setGeometryWithTopMoved(
@@ -1662,6 +1665,8 @@ void Widget::updateControlsGeometry() {
 	auto filterRight = (session().domain().local().hasLocalPasscode() ? (st::dialogsFilterPadding.x() + _lockUnlock->width()) : st::dialogsFilterSkip) + st::dialogsFilterPadding.x();
 	auto filterWidth = qMax(width(), st::columnMinimalWidthLeft) - filterLeft - filterRight;
 	auto filterAreaHeight = st::topBarHeight;
+	_filterTabControl->setGeometry(0, filterAreaTop, width(), filterAreaHeight);
+	filterAreaTop += filterAreaHeight;
 	_searchControls->setGeometry(0, filterAreaTop, width(), filterAreaHeight);
 	if (_folderTopBar) {
 		_folderTopBar->setGeometry(_searchControls->geometry());
@@ -1671,7 +1676,7 @@ void Widget::updateControlsGeometry() {
 	filterLeft = anim::interpolate(filterLeft, smallLayoutWidth, smallLayoutRatio);
 	_filter->setGeometryToLeft(filterLeft, filterTop, filterWidth, _filter->height());
 	auto mainMenuLeft = anim::interpolate(st::dialogsFilterPadding.x(), (smallLayoutWidth - _mainMenuToggle->width()) / 2, smallLayoutRatio);
-	_mainMenuToggle->moveToLeft(mainMenuLeft, st::dialogsFilterPadding.y());
+	_mainMenuToggle->moveToLeft(mainMenuLeft, st::dialogsFilterPadding.y() + _filterTabControl->geometry().top());
 	const auto searchLeft = anim::interpolate(
 		-_searchForNarrowFilters->width(),
 		(smallLayoutWidth - _searchForNarrowFilters->width()) / 2,
